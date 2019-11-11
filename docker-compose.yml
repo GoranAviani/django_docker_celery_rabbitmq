@@ -22,7 +22,9 @@ services:
     image: rabbitmq:3.8-alpine
   celery_worker:
     <<: *python
-    command: celery -A django_docker_celery_rabbitmq worker --loglevel=info
+   # command: celery -A django_docker_celery_rabbitmq worker --loglevel=info
+   # command: bash -c "celery -A django_docker_celery_rabbitmq worker -l info && celery -A django_docker_celery_rabbitmq beat -l info"
+    command: celery -A django_docker_celery_rabbitmq worker -l info -B
     ports: []
     depends_on:
       - rabbitmq
