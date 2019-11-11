@@ -6,8 +6,8 @@ from celery import Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_docker_celery_rabbitmq.settings')
 
 app = Celery('django_docker_celery_rabbitmq',
-             broker='amqp://guest@localhost//',
-             backend='amqp://guest@localhost//',
+             broker='amqp://rabbitmq',
+             backend='amqp://rabbitmq',
              )
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
