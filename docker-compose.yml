@@ -1,0 +1,30 @@
+version: '3'
+volumes:
+  pgdata:
+services:
+  python: &python
+    # image: python:3.5
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+    - PYTHONUNBUFFERED=1
+    volumes:
+      - .:/django_docker_celery_rabbitmq
+    ports:
+      - 8000:8000
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - rabbitmq
+      - celery_worker
+  ## message queue for celery
+  rabbitmq:
+    image: rabbitmq:3.7-alpine
+  celery_worker:
+    <<: *python
+    command: celery -A tickets worker --loglevel=info
+    ports: []
+    depends_on:
+      - rabbitmq
+      
+  
