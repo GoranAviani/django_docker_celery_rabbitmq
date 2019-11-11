@@ -22,7 +22,7 @@ services:
     image: rabbitmq:3.7-alpine
   celery_worker:
     <<: *python
-    command: celery -A tickets worker --loglevel=info
+    command: celery -A django_docker_celery_rabbitmq worker --loglevel=info
     ports: []
     depends_on:
       - rabbitmq
