@@ -5,5 +5,5 @@ from celery import shared_task
 #periodic task
 @shared_task
 def periodic_task():
-    print("This is a test Task!"))
+    print("This is a test Task!")
    
